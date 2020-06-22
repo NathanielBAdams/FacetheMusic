@@ -1,7 +1,7 @@
 let privacy = document.querySelector('#privacy');
 let vocalGuitar = document.querySelector('.guitar');
 let vocalBass = document.querySelector('.bass');
-let Beatbox = document.querySelector('.drums');
+let beatbox = document.querySelector('.drums');
 let instruments = document.querySelectorAll('.instrument-buttons');
 
 privacy.addEventListener('click', function() {
@@ -16,27 +16,15 @@ for (let i of instruments) {
 }
 
 vocalGuitar.addEventListener('click', function() {
-	if (guitar.mute()) {
-		guitar.mute(false);
-	} else {
-		guitar.mute(true);
-	}
+	guitar.mute() ? guitar.mute(false) : guitar.mute(true);
 });
 
 vocalBass.addEventListener('click', function() {
-	if (bass.mute()) {
-		bass.mute(false);
-	} else {
-		bass.mute(true);
-	}
+	bass.mute() ? bass.mute(false) : bass.mute(true);
 });
 
-Beatbox.addEventListener('click', function() {
-	if (drums.mute()) {
-		drums.mute(false);
-	} else {
-		drums.mute(true);
-	}
+beatbox.addEventListener('click', function() {
+	drums.mute() ? drums.mute(false) : drums.mute(true);
 });
 
 // Each frame, the canvas is refilled. This function is called each time before face processing starts.

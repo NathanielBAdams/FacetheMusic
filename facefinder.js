@@ -113,7 +113,7 @@ function button_callback() {
 			// check the detection score
 			// if it's above the threshold, draw it
 			// (the constant 50.0 is empirical: other cascades might require a different one)
-			if (dets[i][3] > 50.0) {
+			if (dets[i][3] > 70.0) {
 				// ***************************
 				// ***************************
 				// ***************************

@@ -7,6 +7,7 @@
 let faceLocation;
 let soundPlaying = false;
 let startBtn = document.getElementsByClassName('startBtn');
+let muteButtons = document.getElementsByClassName('muteButtons');
 // ***********************
 
 var initialized = false;
@@ -16,8 +17,13 @@ function button_callback() {
 				
 			
             */
-	startBtn[0].style.display = 'none';
-	startBtn[1].style.display = 'none';
+	for (let i of startBtn) {
+		i.style.display = 'none';
+	}
+
+	for (let i of muteButtons) {
+		i.style.display = 'block';
+	}
 	if (initialized) return; // if yes, then do not initialize everything again
 	/* 
 				(1) initialize the pico.js face detector

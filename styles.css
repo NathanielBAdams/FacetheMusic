@@ -29,3 +29,7 @@ red {
 .muted {
 	text-decoration: line-through;
 }
+
+.muteButtons {
+	display: none;
+}

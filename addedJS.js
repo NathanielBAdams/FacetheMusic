@@ -3,11 +3,29 @@ let vocalGuitar = document.querySelector('.guitar');
 let vocalBass = document.querySelector('.bass');
 let beatbox = document.querySelector('.drums');
 let instruments = document.querySelectorAll('.instrument-buttons');
+let faceLocation;
+let ULplaying = false;
+let URplaying = false;
+let LLplaying = false;
+let LRplaying = false;
+let startBtn = document.getElementsByClassName('startBtn');
+let muteButtons = document.getElementsByClassName('muteButtons');
 
-privacy.addEventListener('click', function() {
-	privacy.style.display = 'block';
-	privacy.textContent = 'All the processing is done on the client side, i.e., without sending images to a server.';
-});
+// once the user starts up the webcam, hide the buttons and start the groove
+hideButtonsStartGroove = function() {
+	for (let i of startBtn) {
+		i.style.display = 'none';
+	}
+	for (let i of muteButtons) {
+		i.style.display = 'block';
+	}
+	// start the groove
+	bass.play('main');
+	drums.play('main');
+	guitar.play('main');
+};
+
+// enable the mute buttons visually
 for (let i of instruments) {
 	i.addEventListener('click', function() {
 		i.classList.toggle('muted');
@@ -15,6 +33,7 @@ for (let i of instruments) {
 	});
 }
 
+// enable the mute button's functions
 vocalGuitar.addEventListener('click', function() {
 	guitar.mute() ? guitar.mute(false) : guitar.mute(true);
 });
@@ -27,91 +46,82 @@ beatbox.addEventListener('click', function() {
 	drums.mute() ? drums.mute(false) : drums.mute(true);
 });
 
+// privacy info
+privacy.addEventListener('click', function() {
+	privacy.style.display = 'block';
+	privacy.textContent = 'All the processing is done on the client side, i.e., without sending images to a server.';
+});
+
 // Each frame, the canvas is refilled. This function is called each time before face processing starts.
-// it 'draws' elements on top of the canvas, so they appear in front of the webcam feed.
+// it draws elements on top of the canvas, so they appear in front of the webcam feed.
 
 function canvasOverlays(ctx) {
 	ctx.shadowColor = 'whitesmoke';
 	ctx.shadowBlur = 15;
 	ctx.lineWidth = 0.1;
 	ctx.fillStyle = '#F0C3B915';
-	switch (faceLocation) {
-		case 'lowerRight':
-			// upper left
-			ctx.strokeRect(20, 20, 200, 150);
-			ctx.fillRect(20, 20, 200, 150);
-			// upper right
-			ctx.strokeRect(410, 20, 200, 150);
-			ctx.fillRect(410, 20, 200, 150);
-			// lower right
-			ctx.save();
-			ctx.fillStyle = '#DF401D35';
-			ctx.strokeRect(410, 290, 200, 150);
-			ctx.fillRect(410, 290, 200, 150);
-			ctx.restore();
-			// lower left
-			ctx.strokeRect(20, 290, 200, 150);
-			ctx.fillRect(20, 290, 200, 150);
-			break;
-		case 'lowerLeft':
-			// upper left
-			ctx.strokeRect(20, 20, 200, 150);
-			ctx.fillRect(20, 20, 200, 150);
-			// upper right
-			ctx.strokeRect(410, 20, 200, 150);
-			ctx.fillRect(410, 20, 200, 150);
-			// lower right
-			ctx.strokeRect(410, 290, 200, 150);
-			ctx.fillRect(410, 290, 200, 150);
-			// lower left
-			ctx.save();
-			ctx.fillStyle = '#1DDF4035';
-			ctx.strokeRect(20, 290, 200, 150);
-			ctx.fillRect(20, 290, 200, 150);
-			ctx.restore();
-			break;
-		case 'upperLeft':
-			// upper left
-			ctx.save();
-			ctx.fillStyle = '#1D32DF35';
-			ctx.strokeRect(20, 20, 200, 150);
-			ctx.fillRect(20, 20, 200, 150);
-			ctx.restore();
-			// upper right
-			ctx.strokeRect(410, 20, 200, 150);
-			ctx.fillRect(410, 20, 200, 150);
-			// lower right
-			ctx.strokeRect(410, 290, 200, 150);
-			ctx.fillRect(410, 290, 200, 150);
-			// lower left
-			ctx.strokeRect(20, 290, 200, 150);
-			ctx.fillRect(20, 290, 200, 150);
-			break;
-		case 'upperRight':
-			// upper left
-			ctx.strokeRect(20, 20, 200, 150);
-			ctx.fillRect(20, 20, 200, 150);
-			// upper right
-			ctx.save();
-			ctx.fillStyle = '#DC1DDF35';
-			ctx.strokeRect(410, 20, 200, 150);
-			ctx.fillRect(410, 20, 200, 150);
-			ctx.restore();
-			// lower right
-			ctx.strokeRect(410, 290, 200, 150);
-			ctx.fillRect(410, 290, 200, 150);
-			// lower left
-			ctx.strokeRect(20, 290, 200, 150);
-			ctx.fillRect(20, 290, 200, 150);
-			break;
+	fillUpperLeft(ctx);
+	fillUpperRight(ctx);
+	fillLowerRight(ctx);
+	fillLowerLeft(ctx);
+}
+
+function fillUpperLeft(ctx) {
+	if ((faceLocation = 'upperLeft' && ULplaying === true)) {
+		ctx.save();
+		ctx.fillStyle = '#1D32DF35';
+		ctx.strokeRect(20, 20, 200, 150);
+		ctx.fillRect(20, 20, 200, 150);
+		ctx.restore();
+	} else {
+		ctx.strokeRect(20, 20, 200, 150);
+		ctx.fillRect(20, 20, 200, 150);
+	}
+}
+
+function fillUpperRight(ctx) {
+	if ((faceLocation = 'upperRight' && URplaying === true)) {
+		ctx.save();
+		ctx.fillStyle = '#DC1DDF35';
+		ctx.strokeRect(410, 20, 200, 150);
+		ctx.fillRect(410, 20, 200, 150);
+		ctx.restore();
+	} else {
+		ctx.strokeRect(410, 20, 200, 150);
+		ctx.fillRect(410, 20, 200, 150);
+	}
+}
+
+function fillLowerRight(ctx) {
+	if ((faceLocation = 'lowerRight' && LRplaying === true)) {
+		ctx.save();
+		ctx.fillStyle = '#DF401D35';
+		ctx.strokeRect(410, 290, 200, 150);
+		ctx.fillRect(410, 290, 200, 150);
+		ctx.restore();
+	} else {
+		ctx.strokeRect(410, 290, 200, 150);
+		ctx.fillRect(410, 290, 200, 150);
+	}
+}
+
+function fillLowerLeft(ctx) {
+	if ((faceLocation = 'lowerLeft' && LLplaying === true)) {
+		ctx.save();
+		ctx.fillStyle = '#1DDF4035';
+		ctx.strokeRect(20, 290, 200, 150);
+		ctx.fillRect(20, 290, 200, 150);
+		ctx.restore();
+	} else {
+		ctx.strokeRect(20, 290, 200, 150);
+		ctx.fillRect(20, 290, 200, 150);
 	}
 }
 
 function soundCheck(ctx) {
 	// pass thru the canvas element (ctx)
 	// this function runs AFTER the detection check in the initial code.
-	// Therefore a face has already been recognized
-	soundPlaying = true;
+	// Therefore a face has already been recognized.
 	// check the quadrant that the face exists in.
 
 	if (dets[0][0] > 240) {
@@ -126,16 +136,24 @@ function soundCheck(ctx) {
 function playSound(faceLocation) {
 	switch (faceLocation) {
 		case 'upperLeft':
-			lick1.play('main');
+			if (ULplaying === false) {
+				lick1.play('main');
+			}
 			break;
 		case 'upperRight':
-			lick2.play('main');
+			if (URplaying === false) {
+				lick2.play('main');
+			}
 			break;
 		case 'lowerLeft':
-			lick3.play('main');
+			if (LLplaying === false) {
+				lick3.play('main');
+			}
 			break;
 		case 'lowerRight':
-			lick4.play('main');
+			if (LRplaying === false) {
+				lick4.play('main');
+			}
 			break;
 	}
 }
@@ -144,8 +162,11 @@ function playSound(faceLocation) {
 
 let lick1 = new Howl({
 	src: [ 'sounds/Lick1.wav' ],
+	onplay: function() {
+		ULplaying = true;
+	},
 	onend: function() {
-		soundPlaying = false;
+		ULplaying = false;
 	},
 	sprite: {
 		main: [ 500, 3200 ]
@@ -154,8 +175,11 @@ let lick1 = new Howl({
 
 let lick2 = new Howl({
 	src: [ 'sounds/Lick2.wav' ],
+	onplay: function() {
+		URplaying = true;
+	},
 	onend: function() {
-		soundPlaying = false;
+		URplaying = false;
 	},
 	sprite: {
 		main: [ 500, 900 ]
@@ -164,8 +188,11 @@ let lick2 = new Howl({
 
 let lick3 = new Howl({
 	src: [ 'sounds/Lick3.wav' ],
+	onplay: function() {
+		LLplaying = true;
+	},
 	onend: function() {
-		soundPlaying = false;
+		LLplaying = false;
 	},
 	sprite: {
 		main: [ 400, 1750 ]
@@ -174,21 +201,25 @@ let lick3 = new Howl({
 
 let lick4 = new Howl({
 	src: [ 'sounds/Lick4.wav' ],
+	onplay: function() {
+		LRplaying = true;
+	},
 	onend: function() {
-		soundPlaying = false;
+		LRplaying = false;
 	},
 	sprite: {
 		main: [ 600, 2400 ]
 	}
 });
 
+// groove loop sounds
 let bass = new Howl({
 	src: [ 'sounds/Bass.wav' ],
 	loop: 1,
 	mute: false,
 	volume: 1,
 	sprite: {
-		main: [ 0, 9400, true ]
+		main: [ 0, 9399, true ]
 	}
 });
 

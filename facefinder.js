@@ -1,13 +1,14 @@
 // ***********************
 // NOTE - the code below is from Pico. I removed the pupil tracker (not needed for this project).
-// I also added my own functions (canvasOverlay and soundCheck) below. The code for this (and all of my added code)
+// I also added my own functions:
+
+// hideButtonsStartGroove()
+// canvasOverlay()
+// soundCheck()
+
+//  The code for this (and all of my added code)
 // is in the addedJS.js file.
 
-// my globally delcared variables
-let faceLocation;
-let soundPlaying = false;
-let startBtn = document.getElementsByClassName('startBtn');
-let muteButtons = document.getElementsByClassName('muteButtons');
 // ***********************
 
 var initialized = false;
@@ -17,21 +18,16 @@ function button_callback() {
 				
 			
             */
-	for (let i of startBtn) {
-		i.style.display = 'none';
-	}
 
-	for (let i of muteButtons) {
-		i.style.display = 'block';
-	}
 	if (initialized) return; // if yes, then do not initialize everything again
 	/* 
 				(1) initialize the pico.js face detector
             */
-	// start the groove
-	bass.play('main');
-	drums.play('main');
-	guitar.play('main');
+	// ********MY CODE************
+
+	hideButtonsStartGroove();
+
+	// ********MY CODE************
 
 	var update_memory = pico.instantiate_detection_memory(5); // we will use the detecions of the last 5 frames
 	var facefinder_classify_region = function(r, c, s, pixels, ldim) {
@@ -75,21 +71,23 @@ function button_callback() {
 	var processfn = function(video, dt) {
 		// render the video frame to the canvas element and extract RGBA pixel data
 		ctx.drawImage(video, 0, 0);
-
-		// ***************************
-		// ***************************
-		// ***************************
-		// ***************************
-		// ********MY CODE************
-		canvasOverlays(ctx);
-		// ********MY CODE************
-		// ***************************
-		// ***************************
-		// ***************************
-		// ***************************
-
 		var rgba = ctx.getImageData(0, 0, 640, 480).data;
 		// prepare input to `run_cascade`
+
+		// ***************************
+		// ***************************
+		// ***************************
+		// ***************************
+		// ********MY CODE************
+
+		canvasOverlays(ctx);
+
+		// ********MY CODE************
+		// ***************************
+		// ***************************
+		// ***************************
+		// ***************************
+
 		image = {
 			pixels: rgba_to_grayscale(rgba, 480, 640),
 			nrows: 480,
@@ -113,15 +111,15 @@ function button_callback() {
 			// check the detection score
 			// if it's above the threshold, draw it
 			// (the constant 50.0 is empirical: other cascades might require a different one)
-			if (dets[i][3] > 70.0) {
+			if (dets[i][3] > 40.0) {
 				// ***************************
 				// ***************************
 				// ***************************
 				// ***************************
 				// ********MY CODE************
-				if (soundPlaying === false) {
-					soundCheck(ctx);
-				}
+
+				soundCheck(ctx);
+
 				// ********MY CODE************
 				// ***************************
 				// ***************************
@@ -133,8 +131,8 @@ function button_callback() {
 				ctx.save();
 				ctx.beginPath();
 				ctx.arc(dets[i][1], dets[i][0], dets[i][2] / 2, 0, 2 * Math.PI, false);
-				ctx.lineWidth = 1;
-				ctx.strokeStyle = '#E4D4E580';
+				ctx.lineWidth = 0.1;
+				ctx.strokeStyle = '#E4D4E540';
 				ctx.stroke();
 				ctx.restore();
 				//

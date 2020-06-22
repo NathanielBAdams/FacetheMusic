@@ -1,0 +1,31 @@
+.bodyclass {
+	background-color: aliceblue;
+}
+
+#privacy {
+	position: relative;
+}
+#privacy:hover {
+	color: lightsteelblue;
+}
+.privacyInfo {
+	color: green;
+}
+
+.rounded-lg {
+	max-width: 5%;
+	display: inline-flex;
+}
+
+red {
+	color: red;
+}
+
+.instrument-buttons:hover {
+	box-shadow: lime;
+	color: lightslategray;
+}
+
+.muted {
+	text-decoration: line-through;
+}

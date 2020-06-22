@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<title>Face the Music</title>
+        <script src="./howler.js/src/howler.core.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="styles.css" type="text/css" rel="stylesheet" /> 
+
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">-->
+	</head>
+	<script src = "./facefinder.js"></script>
+	<body class = "bodyclass">
+        
+		<section>
+            <h1 class = "header"><center>FACE THE MUSIC</center></h1>
+			
+			
+        </section>
+        <div class = "container col-9">
+            <h6 class = "startBtn"><center>Click the button below and allow the page to access your webcam.</center></h6>
+           <center>
+            <button type="button" class="btn btn-primary guitar instrument-buttons">Guitar</button>
+            <button type="button" class="btn btn-primary bass instrument-buttons">Bass</button>
+            <button type="button" class="btn btn-primary drums instrument-buttons">Beatbox</button>
+        </center> 
+            
+        </div>
+        <hr>
+    
+        <p><center><input class = "startBtn" type="button" value="START" onclick="button_callback()"></center></p> 
+         
+         
+            
+		<p><center><canvas width=640 height=480></canvas></center></p>
+        <hr>
+        <section>
+            <div class = "container-fluid">
+                <div>
+                    <center><p class = "btn btn-md btn-info" id = "privacy"><strong>Privacy concerns?</strong></p> </center>
+                </div>
+                
+                <hr>
+                <h2><center>
+                    Built using <a href = "https://tehnokv.com/posts/picojs-intro/">Pico JS</a> and <a href = "https://howlerjs.com/">Howler JS </a>
+                </center></h2>
+                <h3><center>
+                    All sounds created by <a href = https://github.com/BargeLeveler7>BargeLeveler7</a>
+                </center></h3>
+            </div>
+           
+            
+        </section>
+        
+        <script src="./addedJS.js" type = "text/javascript"></script>
+	</body>
+</html>

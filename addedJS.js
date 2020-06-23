@@ -33,7 +33,7 @@ for (let i of instruments) {
 	});
 }
 
-// enable the mute button's functions
+// enable the loop button's mute functions
 vocalGuitar.addEventListener('click', function() {
 	guitar.mute() ? guitar.mute(false) : guitar.mute(true);
 });
@@ -123,14 +123,25 @@ function soundCheck(ctx) {
 	// this function runs AFTER the detection check in the initial code.
 	// Therefore a face has already been recognized.
 	// check the quadrant that the face exists in.
+	let x = dets[0][1];
+	let y = dets[0][0];
 
-	if (dets[0][0] > 240) {
-		faceLocation = dets[0][1] > 320 ? 'lowerRight' : 'lowerLeft';
-	} else {
-		faceLocation = dets[0][1] > 320 ? 'upperRight' : 'upperLeft';
+	if (x < 200 && y < 160) {
+		faceLocation = 'upperLeft';
 	}
-	// Depending on where the face is, play the sound and animate connected to that quadrant
+	if (x < 200 && y > 270) {
+		faceLocation = 'lowerLeft';
+	}
+	if (x > 400 && y < 160) {
+		faceLocation = 'upperRight';
+	}
+	if (x > 400 && y > 270) {
+		faceLocation = 'lowerRight';
+	}
+
+	// Depending on where the face is, play the sound connected to that quadrant
 	playSound(faceLocation);
+	// console.log((x = ' - ' + y + ': ' + faceLocation));
 }
 
 function playSound(faceLocation) {

@@ -12,11 +12,6 @@
 	color: green;
 }
 
-.rounded-lg {
-	max-width: 5%;
-	display: inline-flex;
-}
-
 .instrument-buttons:hover {
 	box-shadow: lime;
 	color: lightslategray;
@@ -24,6 +19,7 @@
 
 .muted {
 	text-decoration: line-through;
+	text-shadow: mintcream;
 }
 
 .muteButtons {

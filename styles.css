@@ -7,6 +7,15 @@ canvas {
 	transform: scaleX(-1);
 }
 
+.animatedGIFS {
+	margin: 50px, 20px;
+	padding: auto;
+}
+
+.lower-image {
+	margin-top: 75%;
+}
+
 #privacy {
 	position: relative;
 }
@@ -15,6 +24,10 @@ canvas {
 }
 .privacyInfo {
 	color: green;
+}
+
+.lower-image {
+	margin-top: 75%;
 }
 
 .instrument-buttons:hover {

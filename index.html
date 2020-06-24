@@ -9,36 +9,50 @@
         <link href="styles.css" type="text/css" rel="stylesheet" /> 
 
 		<!--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">-->
-	</head>
+    </head>
+    
 	<script src = "./facefinder.js" type = "text/javascript"></script>
 	<body class = "bodyclass">
         
-		<section>
-            <h1 class = "header"><center>FACE THE MUSIC</center></h1>
-			
-			
-        </section>
-        <div class = "container col-9">
-            <h5 class = "startBtn"><center>All sounds created with the human voice!</center> </h5>
-            <h6 class = "startBtn"><center>Click the button below and allow the page to access your webcam.</center></h6>
-            <div class="muteButtons" display = "none">
-                <center>
-                    <h6 >Press to mute / unmute!</h6>
-                    <button type="button" class="btn btn-primary guitar instrument-buttons">Loop One</button>
-                    <button type="button" class="btn btn-primary bass instrument-buttons">Loop Two</button>
-                    <button type="button" class="btn btn-primary drums instrument-buttons">Loop Three</button>
-                </center> 
+	<section>
+            <h1 class = "header"><center>FACE THE MUSIC</center></h1>	
+            <div class = "container col-9">
+                <h5 class = "startBtn"><center>All sounds created with the human voice!</center> </h5>
+                <h6 class = "startBtn"><center>Click the button below and allow the page to access your webcam.</center></h6>
+                <div class="muteButtons" display = "none">
+                    <center>
+                        <h6 >Press to mute / unmute!</h6>
+                        <button type="button" class="btn btn-primary guitar instrument-buttons">Loop One</button>
+                        <button type="button" class="btn btn-primary bass instrument-buttons">Loop Two</button>
+                        <button type="button" class="btn btn-primary drums instrument-buttons">Loop Three</button>
+                    </center> 
+                </div> 
             </div>
-           
-            
-        </div>
+    </section>
         <hr>
-    
-        <p><center><input class = "startBtn" type="button" value="START THE MUSIC!" onclick="button_callback()"></center></p> 
-         
-         
-            
-		<p><center><canvas width=640 height=480></canvas></center></p>
+        <div class="container-fluid text-center">    
+            <div class="row content">
+              <div class="col-sm-2">
+                <img id="source" style = "visibility: hidden" class = "img-responsive img-rounded img-thumbnail animatedGIFs"
+                src="./rhino.jpg">
+                <img id="source" style = "visibility: hidden" class = "img-responsive img-rounded img-thumbnail lower-image animatedGIFs"
+                src="./rhino.jpg">
+              </div>
+              <div class="col-sm-8"> 
+                <p><center><input class = "startBtn" type="button" value="START THE MUSIC!" onclick="button_callback()"></center></p> 
+                <p><center><canvas width=640 height=480></canvas></center></p>
+              </div>
+              <div class="col-sm-2">
+                <img id="source" style = "visibility: hidden" class = " img-responsive img-rounded img-thumbnail animatedGIFs"
+                src="./rhino.jpg">
+                <img id="source" style = "visibility: hidden" class = "img-responsive img-rounded img-thumbnail lower-image animatedGIFs"
+                src="./rhino.jpg">
+              </div>
+              </div>
+            </div>
+          </div>
+        
+        
         <hr>
         <section>
             <div class = "container-fluid">

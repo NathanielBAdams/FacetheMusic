@@ -10,6 +10,7 @@ let LLplaying = false;
 let LRplaying = false;
 let startBtn = document.getElementsByClassName('startBtn');
 let muteButtons = document.getElementsByClassName('muteButtons');
+let images = document.getElementsByClassName('animatedGIFs');
 
 // once the user starts up the webcam, hide the buttons and start the groove
 hideButtonsStartGroove = function() {
@@ -120,7 +121,7 @@ function fillLowerRight(ctx) {
 
 function soundCheck(ctx) {
 	// pass thru the canvas element (ctx)
-	// this function runs AFTER the detection check in the initial code.
+	// this function runs AFTER the detection check in the picoJS code.
 	// Therefore a face has already been recognized.
 	// check the quadrant that the face exists in.
 	let x = dets[0][1];
@@ -138,7 +139,7 @@ function soundCheck(ctx) {
 	if (x > 375 && y > 240) {
 		faceLocation = 'lowerLeft';
 	}
-	console.log(faceLocation);
+
 	// Depending on where the face is, play the sound connected to that quadrant
 	playSound(faceLocation);
 	// console.log((x = ' - ' + y + ': ' + faceLocation));
@@ -175,9 +176,11 @@ let lick1 = new Howl({
 	src: [ 'sounds/Lick1.wav' ],
 	onplay: function() {
 		ULplaying = true;
+		images[0].style.visibility = 'visible';
 	},
 	onend: function() {
 		ULplaying = false;
+		images[0].style.visibility = 'hidden';
 	},
 	sprite: {
 		main: [ 500, 3200 ]
@@ -188,9 +191,11 @@ let lick2 = new Howl({
 	src: [ 'sounds/Lick2.wav' ],
 	onplay: function() {
 		URplaying = true;
+		images[2].style.visibility = 'visible';
 	},
 	onend: function() {
 		URplaying = false;
+		images[2].style.visibility = 'hidden';
 	},
 	sprite: {
 		main: [ 500, 900 ]
@@ -201,9 +206,11 @@ let lick3 = new Howl({
 	src: [ 'sounds/Lick3.wav' ],
 	onplay: function() {
 		LLplaying = true;
+		images[1].style.visibility = 'visible';
 	},
 	onend: function() {
 		LLplaying = false;
+		images[1].style.visibility = 'hidden';
 	},
 	sprite: {
 		main: [ 400, 1750 ]
@@ -214,9 +221,11 @@ let lick4 = new Howl({
 	src: [ 'sounds/Lick4.wav' ],
 	onplay: function() {
 		LRplaying = true;
+		images[3].style.visibility = 'visible';
 	},
 	onend: function() {
 		LRplaying = false;
+		images[3].style.visibility = 'hidden';
 	},
 	sprite: {
 		main: [ 600, 2400 ]

@@ -66,8 +66,8 @@ function canvasOverlays(ctx) {
 	fillLowerLeft(ctx);
 }
 
-function fillUpperLeft(ctx) {
-	if ((faceLocation = 'upperLeft' && ULplaying === true)) {
+function fillUpperRight(ctx) {
+	if ((faceLocation = 'upperRight' && URplaying === true)) {
 		ctx.save();
 		ctx.fillStyle = '#1D32DF35';
 		ctx.strokeRect(20, 20, 200, 150);
@@ -79,8 +79,8 @@ function fillUpperLeft(ctx) {
 	}
 }
 
-function fillUpperRight(ctx) {
-	if ((faceLocation = 'upperRight' && URplaying === true)) {
+function fillUpperLeft(ctx) {
+	if ((faceLocation = 'upperLeft' && ULplaying === true)) {
 		ctx.save();
 		ctx.fillStyle = '#DC1DDF35';
 		ctx.strokeRect(410, 20, 200, 150);
@@ -92,8 +92,8 @@ function fillUpperRight(ctx) {
 	}
 }
 
-function fillLowerRight(ctx) {
-	if ((faceLocation = 'lowerRight' && LRplaying === true)) {
+function fillLowerLeft(ctx) {
+	if ((faceLocation = 'lowerLeft' && LLplaying === true)) {
 		ctx.save();
 		ctx.fillStyle = '#DF401D35';
 		ctx.strokeRect(410, 290, 200, 150);
@@ -105,8 +105,8 @@ function fillLowerRight(ctx) {
 	}
 }
 
-function fillLowerLeft(ctx) {
-	if ((faceLocation = 'lowerLeft' && LLplaying === true)) {
+function fillLowerRight(ctx) {
+	if ((faceLocation = 'lowerRight' && LRplaying === true)) {
 		ctx.save();
 		ctx.fillStyle = '#1DDF4035';
 		ctx.strokeRect(20, 290, 200, 150);
@@ -127,18 +127,18 @@ function soundCheck(ctx) {
 	let y = dets[0][0];
 
 	if (x < 240 && y < 200) {
-		faceLocation = 'upperLeft';
-	}
-	if (x < 240 && y > 240) {
-		faceLocation = 'lowerLeft';
-	}
-	if (x > 375 && y < 200) {
 		faceLocation = 'upperRight';
 	}
-	if (x > 375 && y > 240) {
+	if (x < 240 && y > 240) {
 		faceLocation = 'lowerRight';
 	}
-
+	if (x > 375 && y < 200) {
+		faceLocation = 'upperLeft';
+	}
+	if (x > 375 && y > 240) {
+		faceLocation = 'lowerLeft';
+	}
+	console.log(faceLocation);
 	// Depending on where the face is, play the sound connected to that quadrant
 	playSound(faceLocation);
 	// console.log((x = ' - ' + y + ': ' + faceLocation));

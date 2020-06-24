@@ -126,16 +126,16 @@ function soundCheck(ctx) {
 	let x = dets[0][1];
 	let y = dets[0][0];
 
-	if (x < 200 && y < 160) {
+	if (x < 240 && y < 200) {
 		faceLocation = 'upperLeft';
 	}
-	if (x < 200 && y > 270) {
+	if (x < 240 && y > 240) {
 		faceLocation = 'lowerLeft';
 	}
-	if (x > 400 && y < 160) {
+	if (x > 375 && y < 200) {
 		faceLocation = 'upperRight';
 	}
-	if (x > 400 && y > 270) {
+	if (x > 375 && y > 240) {
 		faceLocation = 'lowerRight';
 	}
 

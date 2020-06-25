@@ -7,13 +7,23 @@ canvas {
 	transform: scaleX(-1);
 }
 
-.animatedGIFS {
-	margin: 50px, 20px;
-	padding: auto;
+.animatedGIFs {
+	width: 100%;
+	max-height: inherit;
+	border-radius: 10%;
+	display: flex;
+	justify-content: space-around;
 }
 
 .lower-image {
-	margin-top: 75%;
+	margin-top: 10%;
+}
+
+.GIFs-left {
+	justify-content: flex-end;
+}
+
+.GIFs-right {
 }
 
 #privacy {
@@ -24,10 +34,6 @@ canvas {
 }
 .privacyInfo {
 	color: green;
-}
-
-.lower-image {
-	margin-top: 75%;
 }
 
 .instrument-buttons:hover {

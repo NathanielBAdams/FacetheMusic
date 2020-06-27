@@ -4,7 +4,7 @@
 
 // hideButtonsStartGroove()
 // canvasOverlay()
-// soundCheck()
+// faceLocator()
 
 //  The code for this (and all of my added code)
 // is in the addedJS.js file.
@@ -118,7 +118,7 @@ function button_callback() {
 				// ***************************
 				// ********MY CODE************
 
-				soundCheck(ctx);
+				faceLocator(ctx);
 
 				// ********MY CODE************
 				// ***************************

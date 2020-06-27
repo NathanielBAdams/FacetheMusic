@@ -53,7 +53,7 @@ privacy.addEventListener('click', function() {
 	privacy.textContent = 'All the processing is done on the client side, i.e., without sending images to a server.';
 });
 
-// Each frame, the canvas is refilled. This function is called each time before face processing starts.
+// Each frame, the canvas is refilled. canvasOverlays is called each time before face processing starts.
 // it draws elements on top of the canvas, so they appear in front of the webcam feed.
 
 function canvasOverlays(ctx) {
@@ -61,10 +61,15 @@ function canvasOverlays(ctx) {
 	ctx.shadowBlur = 15;
 	ctx.lineWidth = 0.1;
 	ctx.fillStyle = '#F0C3B915';
-	fillUpperLeft(ctx);
-	fillUpperRight(ctx);
-	fillLowerRight(ctx);
-	fillLowerLeft(ctx);
+	if (URplaying && ULplaying && LRplaying && LLplaying) {
+		console.log('all four!');
+		bonus.play();
+	} else {
+		fillUpperLeft(ctx);
+		fillUpperRight(ctx);
+		fillLowerRight(ctx);
+		fillLowerLeft(ctx);
+	}
 }
 
 function fillUpperRight(ctx) {
@@ -119,7 +124,7 @@ function fillLowerRight(ctx) {
 	}
 }
 
-function soundCheck(ctx) {
+function faceLocator(ctx) {
 	// pass thru the canvas element (ctx)
 	// this function runs AFTER the detection check in the picoJS code.
 	// Therefore a face has already been recognized.
@@ -262,3 +267,38 @@ let guitar = new Howl({
 		main: [ 0, 9400, true ]
 	}
 });
+
+let bonus = new Howl({
+	src: [ 'sounds/virus.flac' ],
+	onplay: function() {
+		for (i of images) {
+			i.style.visibility = 'hidden';
+		}
+		muteAllSounds();
+	},
+	onend: function() {
+		unMuteAllSounds();
+	},
+	mute: false,
+	volume: 1
+});
+
+muteAllSounds = () => {
+	guitar.mute(true);
+	bass.mute(true);
+	// drums.mute(true);
+	lick1.mute(true);
+	lick2.mute(true);
+	lick3.mute(true);
+	lick4.mute(true);
+};
+
+unMuteAllSounds = () => {
+	guitar.mute(false);
+	bass.mute(false);
+	// drums.mute(false);
+	lick1.mute(false);
+	lick2.mute(false);
+	lick3.mute(false);
+	lick4.mute(false);
+};

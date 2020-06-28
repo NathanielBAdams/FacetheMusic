@@ -186,7 +186,8 @@ let lick1 = new Howl({
 	onplay: function() {
 		ULplaying = true;
 		images[0].style.visibility = 'visible';
-		// images[0].src = './images/lick1.gif'
+		images[0].src = '';
+		images[0].src = './images/lick1.gif';
 	},
 	onmute: function() {
 		ULplaying = false;
@@ -205,7 +206,8 @@ let lick2 = new Howl({
 	onplay: function() {
 		URplaying = true;
 		images[2].style.visibility = 'visible';
-		// images[2].src = './images/lick2.gif';
+		images[2].src = '';
+		images[2].src = './images/lick2.gif';
 	},
 	onmute: function() {
 		URplaying = false;
@@ -224,7 +226,8 @@ let lick3 = new Howl({
 	onplay: function() {
 		LLplaying = true;
 		images[1].style.visibility = 'visible';
-		// images[1].src = './images/lick3.gif';
+		images[1].src = '';
+		images[1].src = './images/lick3.gif';
 	},
 	onmute: function() {
 		LLplaying = false;
@@ -243,7 +246,8 @@ let lick4 = new Howl({
 	onplay: function() {
 		LRplaying = true;
 		images[3].style.visibility = 'visible';
-		// images[3].src = './images/lick4.gif';
+		images[3].src = '';
+		images[3].src = './images/lick4.gif';
 	},
 	onmute: function() {
 		LRplaying = false;

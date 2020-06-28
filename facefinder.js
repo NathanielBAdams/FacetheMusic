@@ -117,8 +117,10 @@ function button_callback() {
 				// ***************************
 				// ***************************
 				// ********MY CODE************
-
-				faceLocator(ctx);
+				// if the bonus is playing, don't play sounds or show GIFs associated with faces
+				if (!bonusPlaying) {
+					faceLocator(ctx);
+				}
 
 				// ********MY CODE************
 				// ***************************

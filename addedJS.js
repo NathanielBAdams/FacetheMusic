@@ -8,6 +8,7 @@ let ULplaying = false;
 let URplaying = false;
 let LLplaying = false;
 let LRplaying = false;
+let bonusPlaying = false;
 let startBtn = document.getElementsByClassName('startBtn');
 let muteButtons = document.getElementsByClassName('muteButtons');
 let images = document.getElementsByClassName('animatedGIFs');
@@ -20,10 +21,11 @@ hideButtonsStartGroove = function() {
 	for (let i of muteButtons) {
 		i.style.display = 'block';
 	}
-	// start the groove
+	// start the groove, scroll the user's screen so they can see the entire canvas
 	bass.play('main');
 	drums.play('main');
 	guitar.play('main');
+	window.scrollTo(0, 75);
 };
 
 // enable the mute buttons visually
@@ -61,7 +63,9 @@ function canvasOverlays(ctx) {
 	ctx.shadowBlur = 15;
 	ctx.lineWidth = 0.1;
 	ctx.fillStyle = '#F0C3B915';
-	if (URplaying && ULplaying && LRplaying && LLplaying) {
+	if (bonusPlaying) {
+		bonusAnimation(ctx);
+	} else if (URplaying && ULplaying && LRplaying && LLplaying) {
 		console.log('all four!');
 		bonus.play();
 	} else {
@@ -184,12 +188,15 @@ let lick1 = new Howl({
 		images[0].style.visibility = 'visible';
 		images[0].src = './images/lick1.gif';
 	},
+	onmute: function() {
+		ULplaying = false;
+	},
 	onend: function() {
 		ULplaying = false;
 		images[0].style.visibility = 'hidden';
 	},
 	sprite: {
-		main: [ 500, 3200 ]
+		main: [ 500, 3000 ]
 	}
 });
 
@@ -200,12 +207,15 @@ let lick2 = new Howl({
 		images[2].style.visibility = 'visible';
 		images[2].src = './images/lick2.gif';
 	},
+	onmute: function() {
+		URplaying = false;
+	},
 	onend: function() {
 		URplaying = false;
 		images[2].style.visibility = 'hidden';
 	},
 	sprite: {
-		main: [ 500, 900 ]
+		main: [ 500, 800 ]
 	}
 });
 
@@ -216,12 +226,15 @@ let lick3 = new Howl({
 		images[1].style.visibility = 'visible';
 		images[1].src = './images/lick3.gif';
 	},
+	onmute: function() {
+		LLplaying = false;
+	},
 	onend: function() {
 		LLplaying = false;
 		images[1].style.visibility = 'hidden';
 	},
 	sprite: {
-		main: [ 400, 1750 ]
+		main: [ 400, 1650 ]
 	}
 });
 
@@ -232,12 +245,15 @@ let lick4 = new Howl({
 		images[3].style.visibility = 'visible';
 		images[3].src = './images/lick4.gif';
 	},
+	onmute: function() {
+		LRplaying = false;
+	},
 	onend: function() {
 		LRplaying = false;
 		images[3].style.visibility = 'hidden';
 	},
 	sprite: {
-		main: [ 600, 2400 ]
+		main: [ 600, 2200 ]
 	}
 });
 
@@ -279,9 +295,13 @@ let bonus = new Howl({
 			i.style.visibility = 'hidden';
 		}
 		muteAllSounds();
+		bonusPlaying = true;
 	},
 	onend: function() {
-		unMuteAllSounds();
+		setTimeout(function() {
+			unMuteAllSounds();
+			bonusPlaying = false;
+		}, 100);
 	},
 	mute: false,
 	volume: 1
@@ -298,11 +318,43 @@ muteAllSounds = () => {
 };
 
 unMuteAllSounds = () => {
-	guitar.mute(false);
 	bass.mute(false);
 	// drums.mute(false);
+	guitar.mute(false);
 	lick1.mute(false);
 	lick2.mute(false);
 	lick3.mute(false);
 	lick4.mute(false);
 };
+
+bonusAnimation = (ctx) => {
+	ctx.save();
+
+	ctx.fillStyle = randomColor();
+	ctx.strokeRect(20, 20, 200, 150);
+	ctx.fillRect(20, 20, 200, 150);
+
+	ctx.fillStyle = randomColor();
+	ctx.strokeRect(410, 20, 200, 150);
+	ctx.fillRect(410, 20, 200, 150);
+
+	ctx.fillStyle = randomColor();
+	ctx.strokeRect(410, 290, 200, 150);
+	ctx.fillRect(410, 290, 200, 150);
+
+	ctx.fillStyle = randomColor();
+	ctx.strokeRect(20, 290, 200, 150);
+	ctx.fillRect(20, 290, 200, 150);
+
+	ctx.restore();
+};
+
+function randomColor() {
+	// pick a random rgba color
+	let red = Math.floor(Math.random() * 256);
+	let green = Math.floor(Math.random() * 256);
+	let blue = Math.floor(Math.random() * 256);
+	let trans = Math.random();
+	let randomColor = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + trans + ')';
+	return randomColor;
+}

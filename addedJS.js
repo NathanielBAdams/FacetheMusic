@@ -290,7 +290,7 @@ let guitar = new Howl({
 });
 // bonus sound!
 let bonus = new Howl({
-	src: [ 'sounds/virus.flac' ],
+	src: [ 'sounds/bonus.mp3' ],
 	onplay: function() {
 		for (i of images) {
 			i.style.visibility = 'hidden';
@@ -311,7 +311,7 @@ let bonus = new Howl({
 muteAllSounds = () => {
 	guitar.mute(true);
 	bass.mute(true);
-	// drums.mute(true);
+	drums.mute(true);
 	lick1.mute(true);
 	lick2.mute(true);
 	lick3.mute(true);
@@ -320,7 +320,7 @@ muteAllSounds = () => {
 
 unMuteAllSounds = () => {
 	bass.mute(false);
-	// drums.mute(false);
+	drums.mute(false);
 	guitar.mute(false);
 	lick1.mute(false);
 	lick2.mute(false);

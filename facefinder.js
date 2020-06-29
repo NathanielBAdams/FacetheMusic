@@ -1,6 +1,8 @@
 // ***********************
-// NOTE - the code below is from Pico. I removed the pupil tracker (not needed for this project).
-// I also added my own functions:
+// ***********************
+// ***********************
+// NOTE - the code below is from PicoJS and Howler. I removed the pupil tracker
+// (not needed for this project). I also added my own functions:
 
 // hideButtonsStartGroove()
 // canvasOverlay()
@@ -9,6 +11,8 @@
 //  The code for this (and all of my added code)
 // is in the addedJS.js file.
 
+// ***********************
+// ***********************
 // ***********************
 
 var initialized = false;
@@ -117,7 +121,7 @@ function button_callback() {
 				// ***************************
 				// ***************************
 				// ********MY CODE************
-				// if the bonus is playing, don't play sounds or show GIFs associated with faces
+				// if the bonus is playing, don't play sounds or show GIFs associated with face position
 				if (!bonusPlaying) {
 					faceLocator(ctx);
 				}

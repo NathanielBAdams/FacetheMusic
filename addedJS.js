@@ -72,7 +72,7 @@ function canvasOverlays(ctx) {
 		bonusAnimation(ctx);
 	} else if (URplaying && ULplaying && LRplaying && LLplaying) {
 		console.log('all four!');
-		bonus.play();
+		bonus.play('main');
 	} else {
 		fillUpperLeft(ctx);
 		fillUpperRight(ctx);
@@ -291,6 +291,9 @@ let guitar = new Howl({
 // bonus sound!
 let bonus = new Howl({
 	src: [ 'sounds/bonus.mp3' ],
+	sprite: {
+		main: [ 0, 6200 ]
+	},
 	onplay: function() {
 		for (i of images) {
 			i.style.visibility = 'hidden';
@@ -302,10 +305,10 @@ let bonus = new Howl({
 		setTimeout(function() {
 			unMuteAllSounds();
 			bonusPlaying = false;
-		}, 100);
+		}, 10);
 	},
 	mute: false,
-	volume: 1
+	volume: 0.7
 });
 
 muteAllSounds = () => {

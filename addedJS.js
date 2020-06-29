@@ -12,6 +12,7 @@ let bonusPlaying = false;
 let startBtn = document.getElementsByClassName('startBtn');
 let muteButtons = document.getElementsByClassName('muteButtons');
 let images = document.getElementsByClassName('animatedGIFs');
+let bonusClue = document.querySelector('.bonus-clue');
 
 // once the user starts up the webcam, hide the buttons and start the groove
 hideButtonsStartGroove = function() {
@@ -26,6 +27,10 @@ hideButtonsStartGroove = function() {
 	drums.play('main');
 	guitar.play('main');
 	window.scrollTo(0, 75);
+	// display the bonus clue after 20 seconds
+	setTimeout(function() {
+		bonusClue.style.display = 'block';
+	}, 20000);
 };
 
 // enable the mute buttons visually

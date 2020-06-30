@@ -60,21 +60,7 @@ beatbox.addEventListener('click', function() {
 
 //enable the reset button functionality
 resetBtn[0].addEventListener('click', function() {
-	console.log('reset clicked');
-	for (let i of instruments) {
-		i.classList.remove('muted');
-	}
-	drums.stop();
-	drums.mute(false);
-	bass.stop();
-	bass.mute(false);
-	guitar.stop();
-	guitar.mute(false);
-	setTimeout(function() {
-		drums.play('main');
-		bass.play('main');
-		guitar.play('main');
-	}, 500);
+	reset();
 });
 
 // privacy info
@@ -210,6 +196,24 @@ function playSound(faceLocation) {
 	}
 }
 
+// reset functionality
+let reset = function() {
+	for (let i of instruments) {
+		i.classList.remove('muted');
+	}
+	drums.stop();
+	drums.mute(false);
+	bass.stop();
+	bass.mute(false);
+	guitar.stop();
+	guitar.mute(false);
+	setTimeout(function() {
+		drums.play('main');
+		bass.play('main');
+		guitar.play('main');
+	}, 100);
+};
+
 // SOUND LIBRARY
 
 let lick1 = new Howl({
@@ -322,18 +326,16 @@ let bonus = new Howl({
 	},
 	onplay: function() {
 		for (i of images) {
-			i.style.visibility = 'visible';
+			i.style.visibility = 'hidden';
 		}
 		muteAllSounds();
 		bonusPlaying = true;
 	},
 	onend: function() {
-		for (i of images) {
-			i.style.visibility = 'hidden';
-		}
 		setTimeout(function() {
-			unMuteAllSounds();
 			bonusPlaying = false;
+			unMuteAllSounds();
+			reset();
 		}, 10);
 	},
 	mute: false,

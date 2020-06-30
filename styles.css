@@ -1,4 +1,4 @@
-.bodyclass {
+body {
 	background-color: aliceblue;
 }
 
@@ -7,9 +7,13 @@ canvas {
 	transform: scaleX(-1);
 }
 
+.topBanner {
+	max-height: 100px;
+}
+
 .animatedGIFs {
 	width: 100%;
-	max-height: inherit;
+	max-height: 50%;
 	border-radius: 10%;
 	display: flex;
 	justify-content: space-around;
@@ -52,4 +56,18 @@ canvas {
 
 .bonus-clue {
 	color: #17a2b8;
+}
+
+.lyla-pic {
+	border-radius: 20px;
+	position: absolute;
+	left: 40%;
+	top: 30%;
+	z-index: -1;
+	height: 200px;
+	width: 170px;
+}
+
+.btn {
+	margin: 10px;
 }

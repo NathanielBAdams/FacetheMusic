@@ -55,7 +55,7 @@ function button_callback() {
 				(3) get the drawing context on the canvas and define a function to transform an RGBA image to grayscale
             */
 
-	var ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
+	const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
 
 	function rgba_to_grayscale(rgba, nrows, ncols) {
 		var gray = new Uint8Array(nrows * ncols);
@@ -122,9 +122,8 @@ function button_callback() {
 				// ***************************
 				// ********MY CODE************
 				// if the bonus is playing, don't play sounds or show GIFs associated with face position
-				if (!bonusPlaying) {
-					faceLocator(ctx);
-				}
+
+				faceLocator(ctx);
 
 				// ********MY CODE************
 				// ***************************
@@ -157,6 +156,9 @@ function button_callback() {
 	initialized = true;
 }
 
+// *********************
+// Code for Howler JS below
+// *********************
 /*!
  *  howler.js v2.2.0
  *  howlerjs.com

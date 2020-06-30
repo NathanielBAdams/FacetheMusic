@@ -3,6 +3,8 @@ let vocalGuitar = document.querySelector('.guitar');
 let vocalBass = document.querySelector('.bass');
 let beatbox = document.querySelector('.drums');
 let instruments = document.querySelectorAll('.instrument-buttons');
+let resetBtn = document.getElementsByClassName('reset');
+let ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
 let faceLocation;
 let ULplaying = false;
 let URplaying = false;
@@ -13,6 +15,7 @@ let startBtn = document.getElementsByClassName('startBtn');
 let muteButtons = document.getElementsByClassName('muteButtons');
 let images = document.getElementsByClassName('animatedGIFs');
 let bonusClue = document.querySelector('.bonus-clue');
+let lylaPic = document.querySelectorAll('.lyla-pic');
 
 // once the user starts up the webcam, hide the buttons and start the groove
 hideButtonsStartGroove = function() {
@@ -22,15 +25,16 @@ hideButtonsStartGroove = function() {
 	for (let i of muteButtons) {
 		i.style.display = 'block';
 	}
+	resetBtn[0].style.display = 'inline';
 	// start the groove, scroll the user's screen so they can see the entire canvas
 	bass.play('main');
 	drums.play('main');
 	guitar.play('main');
 	window.scrollTo(0, 75);
-	// display the bonus clue after 20 seconds
+	// display the bonus clue after 15 seconds
 	setTimeout(function() {
 		bonusClue.style.display = 'block';
-	}, 20000);
+	}, 15000);
 };
 
 // enable the mute buttons visually
@@ -52,6 +56,25 @@ vocalBass.addEventListener('click', function() {
 
 beatbox.addEventListener('click', function() {
 	drums.mute() ? drums.mute(false) : drums.mute(true);
+});
+
+//enable the reset button functionality
+resetBtn[0].addEventListener('click', function() {
+	console.log('reset clicked');
+	for (let i of instruments) {
+		i.classList.remove('muted');
+	}
+	drums.stop();
+	drums.mute(false);
+	bass.stop();
+	bass.mute(false);
+	guitar.stop();
+	guitar.mute(false);
+	setTimeout(function() {
+		drums.play('main');
+		bass.play('main');
+		guitar.play('main');
+	}, 500);
 });
 
 // privacy info
@@ -134,6 +157,9 @@ function fillLowerRight(ctx) {
 }
 
 function faceLocator(ctx) {
+	if (bonusPlaying) {
+		return;
+	}
 	// pass thru the canvas element (ctx)
 	// this function runs AFTER the detection check in the picoJS code.
 	// Therefore a face has already been recognized.
@@ -265,7 +291,7 @@ let bass = new Howl({
 	mute: false,
 	volume: 1,
 	sprite: {
-		main: [ 0, 9399, true ]
+		main: [ 0, 9400, true ]
 	}
 });
 
@@ -296,12 +322,15 @@ let bonus = new Howl({
 	},
 	onplay: function() {
 		for (i of images) {
-			i.style.visibility = 'hidden';
+			i.style.visibility = 'visible';
 		}
 		muteAllSounds();
 		bonusPlaying = true;
 	},
 	onend: function() {
+		for (i of images) {
+			i.style.visibility = 'hidden';
+		}
 		setTimeout(function() {
 			unMuteAllSounds();
 			bonusPlaying = false;
@@ -311,7 +340,10 @@ let bonus = new Howl({
 	volume: 0.7
 });
 
+// bonus animation functions
 muteAllSounds = () => {
+	lylaPic[0].style.display = 'block';
+	lylaPic[0].style.zIndex = '1';
 	guitar.mute(true);
 	bass.mute(true);
 	drums.mute(true);
@@ -322,6 +354,9 @@ muteAllSounds = () => {
 };
 
 unMuteAllSounds = () => {
+	lylaPic[0].style.display = 'none';
+	lylaPic[0].style.zIndex = '-10';
+	ctx.canvas.style.zIndex = '1';
 	bass.mute(false);
 	drums.mute(false);
 	guitar.mute(false);

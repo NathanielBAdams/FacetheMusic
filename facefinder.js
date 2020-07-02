@@ -55,7 +55,7 @@ function button_callback() {
 				(3) get the drawing context on the canvas and define a function to transform an RGBA image to grayscale
             */
 
-	const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
+	let ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
 
 	function rgba_to_grayscale(rgba, nrows, ncols) {
 		var gray = new Uint8Array(nrows * ncols);

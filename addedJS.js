@@ -332,11 +332,9 @@ let bonus = new Howl({
 		bonusPlaying = true;
 	},
 	onend: function() {
-		setTimeout(function() {
-			bonusPlaying = false;
-			unMuteAllSounds();
-			reset();
-		}, 10);
+		bonusPlaying = false;
+		reset();
+		unMuteAllSounds();
 	},
 	mute: false,
 	volume: 0.7
@@ -396,6 +394,7 @@ function randomColor() {
 	let green = Math.floor(Math.random() * 256);
 	let blue = Math.floor(Math.random() * 256);
 	let trans = Math.random();
-	let randomColor = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + trans + ')';
-	return randomColor;
+	return `rgba(${red}, ${green}, ${blue}, ${trans})`;
+	// let randomColor = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + trans + ')';
+	// return randomColor;
 }

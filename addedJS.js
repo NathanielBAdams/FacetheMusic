@@ -333,8 +333,8 @@ let bonus = new Howl({
 	},
 	onend: function() {
 		bonusPlaying = false;
-		reset();
 		unMuteAllSounds();
+		reset();
 	},
 	mute: false,
 	volume: 0.7
